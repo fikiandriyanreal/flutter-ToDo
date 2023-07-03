@@ -247,40 +247,64 @@ class NavigationDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: tdBlue,
-            ),
-            child: Text(
-              'Drawer Header',
+          const UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: (tdBlue)),
+            accountName: Text(
+              "Fiki Andriyan",
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 24.0,
+                fontWeight: FontWeight.normal,
               ),
             ),
+            accountEmail: Text(
+              "fikiandriyanreal@gmail.com",
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: AssetImage('../assets/images/avatar.jpg'),
+            ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
+            leading: Theme(
+              data: Theme.of(context).copyWith(
+                iconTheme: IconThemeData(
+                  color: Colors.blue, // Set the desired icon color here
+                ),
+              ),
+              child: Icon(Icons.home),
+            ),
             title: Text('Home'),
             onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // TODO: Navigate to Home screen
+              Navigator.pushNamed(context, '/home');
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Theme(
+              data: Theme.of(context).copyWith(
+                iconTheme: IconThemeData(
+                  color: Colors.blue, // Set the desired icon color here
+                ),
+              ),
+              child: Icon(Icons.settings),
+            ),
             title: Text('Settings'),
             onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // TODO: Navigate to Settings screen
+              // Add your logic here
             },
           ),
           ListTile(
-            leading: Icon(Icons.info),
+            leading: Theme(
+              data: Theme.of(context).copyWith(
+                iconTheme: IconThemeData(
+                  color: Colors.blue, // Set the desired icon color here
+                ),
+              ),
+              child: Icon(Icons.info),
+            ),
             title: Text('About'),
             onTap: () {
-              Navigator.pop(context); // Close the drawer
-              // TODO: Navigate to About screen
+              // Add your logic here
             },
           ),
         ],

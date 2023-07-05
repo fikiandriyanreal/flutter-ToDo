@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:todo_app/screens/popup.dart';
 import 'screens/home.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       home: Home(),
       routes: {
         '/home': (context) => Home(),
+        '/popup': (context) => MyHomePage(),
       },
     );
   }

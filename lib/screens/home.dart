@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/screens/popup.dart';
 
 import '../models/todo.dart';
 import '../constants/colors.dart';
@@ -25,6 +26,66 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  content: Container(
+                height: 120,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextField(
+                        controller: _todoController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Add a new task',
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              _addToDoItem(_todoController.text);
+                            },
+                            child: Text('Submit'),
+                            style: ElevatedButton.styleFrom(
+                              // Change the minimumSize property to adjust the button size
+                              minimumSize: Size(80, 40),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Cancel'),
+                            style: ElevatedButton.styleFrom(
+                              // Change the minimumSize property to adjust the button size
+                              minimumSize: Size(80, 40),
+                            ),
+                          )
+                        ],
+                      )
+                    ]),
+              ));
+            },
+          );
+        },
+        child: Icon(Icons.add),
+        heroTag: null,
+        elevation: 6.0,
+        backgroundColor: tdBlue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
       drawer: NavigationDrawer(),
@@ -66,64 +127,6 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(children: [
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.only(
-                    bottom: 20,
-                    right: 20,
-                    left: 20,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 0.0),
-                        blurRadius: 10.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: _todoController,
-                    decoration: InputDecoration(
-                        hintText: 'Add a new todo item',
-                        border: InputBorder.none),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  bottom: 20,
-                  right: 20,
-                ),
-                child: ElevatedButton(
-                  child: Text(
-                    '+',
-                    style: TextStyle(
-                      fontSize: 40,
-                    ),
-                  ),
-                  onPressed: () {
-                    _addToDoItem(_todoController.text);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: tdBlue,
-                    minimumSize: Size(60, 60),
-                    elevation: 10,
-                  ),
-                ),
-              ),
-            ]),
           ),
         ],
       ),
@@ -229,10 +232,10 @@ class AvatarIcon extends StatelessWidget {
     return Container(
       width: 40,
       height: 40,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
-          image: AssetImage('../assets/images/avatar.jpg'),
+          image: AssetImage('assets/images/avatar.jpg'),
           fit: BoxFit.cover,
         ),
       ),
@@ -262,7 +265,7 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage('../assets/images/avatar.jpg'),
+              backgroundImage: AssetImage('assets/images/avatar.jpg'),
             ),
           ),
           ListTile(
@@ -290,6 +293,7 @@ class NavigationDrawer extends StatelessWidget {
             ),
             title: Text('Settings'),
             onTap: () {
+              Navigator.pushNamed(context, '/popup');
               // Add your logic here
             },
           ),

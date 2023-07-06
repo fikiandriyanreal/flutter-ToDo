@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/popup.dart';
-
 import '../models/todo.dart';
 import '../constants/colors.dart';
 import '../widgets/todo_item.dart';
@@ -79,7 +77,7 @@ class _HomeState extends State<Home> {
         },
         child: Icon(Icons.add),
         heroTag: null,
-        elevation: 6.0,
+        elevation: 9.0,
         backgroundColor: tdBlue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
@@ -139,12 +137,14 @@ class _HomeState extends State<Home> {
     });
   }
 
+// Delete Item
   void _deleteToDoItem(String id) {
     setState(() {
       todosList.removeWhere((item) => item.id == id);
     });
   }
 
+// Add Item
   void _addToDoItem(String toDo) {
     setState(() {
       todosList.add(ToDo(
@@ -155,6 +155,7 @@ class _HomeState extends State<Home> {
     _todoController.clear();
   }
 
+// Search Item
   void _runFilter(String enteredKeyword) {
     List<ToDo> results = [];
     if (enteredKeyword.isEmpty) {
